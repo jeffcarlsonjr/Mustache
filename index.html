@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Mustache Sample</title>
+         <style>
+            nav{
+                width: 100%;
+                height: 40px;
+                float: left;                
+            }
+            nav ul{
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+            }
+            nav ul li{
+                float: left;
+                font-size: 22px;
+                margin-right: 20px;
+            }
+            nav ul li a{
+                text-decoration: none;
+            }
+            nav ul li a:hover{
+                text-decoration: underline;
+            }
+        </style>
+</head>
+<body style="width: 980px; margin: 0px auto">
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html">JSON</a>
+            </li>
+            <li>
+                <a href="samplePHP.php">PHP</a>
+            </li>
+           
+        </ul>
+    </nav>
+    <br/><br/>
+    <p>This version is made with a json array.</p>
+	<h2>Speakers Bio</h2>
+	<dl id="talktitles">
+        </dl>
+ 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.0/mustache.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        
+        <script id="speakers-template" type="text/template">
+            {{#speakers}}
+                <dt><h2>{{name}}</h2></dt>
+                <dd><b>Short Name: </b>{{shortname}}</dd>
+                <dd><b>Organization: </b>{{reknown}}</dd>
+                <dd><b>Bio: </b>{{bio}}</dd>
+                <hr align="center" width="60%">
+            {{/speakers}}
+        </script>
+        
+        <script>
+                    $(function() {
+                        $.getJSON('./sampleData.json',
+                        function(data) {
+                            var template = $('#speakers-template').html();
+                            var info = Mustache.to_html(template, data);
+                            $('#talktitles').html(info);
+                        });
+                    });
+        </script>
+</body>
+</html>
